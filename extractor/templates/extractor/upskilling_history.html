@@ -1,0 +1,162 @@
+{% extends "extractor/base.html" %}
+
+{% block title %}Upskilling History - AICruit{% endblock %}
+
+{% block content %}
+<style>
+  .history-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  .history-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .history-header h1 {
+    color: #1f2937;
+    margin-bottom: 10px;
+  }
+  .analysis-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: transform 0.2s;
+  }
+  .analysis-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+  .analysis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  .analysis-role {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #667eea;
+  }
+  .analysis-date {
+    color: #6b7280;
+    font-size: 0.9em;
+  }
+  .skill-section {
+    margin: 15px 0;
+  }
+  .skill-section h4 {
+    color: #1f2937;
+    margin-bottom: 10px;
+  }
+  .skill-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 6px 12px;
+    border-radius: 15px;
+    margin: 5px;
+    font-size: 0.85em;
+  }
+  .skill-badge.gap {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+  }
+  .empty-state i {
+    font-size: 4em;
+    margin-bottom: 20px;
+    color: #d1d5db;
+  }
+  .btn-start {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+  .btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+</style>
+
+<div class="history-container">
+  <div class="history-header">
+    <h1><i class="fas fa-history"></i> Your Upskilling History</h1>
+    <p>View your past skill gap analyses and course recommendations</p>
+  </div>
+
+  {% if analyses %}
+    {% for analysis in analyses %}
+    <div class="analysis-card">
+      <div class="analysis-header">
+        <div class="analysis-role">
+          <i class="fas fa-briefcase"></i> {{ analysis.target_job_role }}
+        </div>
+        <div class="analysis-date">
+          {{ analysis.created_at|date:"F d, Y" }}
+        </div>
+      </div>
+      
+      <div class="skill-section">
+        <h4><i class="fas fa-check-circle" style="color: #10b981;"></i> Skills Detected</h4>
+        <div>
+          {% if analysis.skills_detected_list %}
+            {% for skill in analysis.skills_detected_list %}
+              <span class="skill-badge">{{ skill }}</span>
+            {% endfor %}
+          {% else %}
+            <p style="color: #6b7280;">No skills detected</p>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="skill-section">
+        <h4><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> Skill Gaps</h4>
+        <div>
+          {% if analysis.skill_gaps_list %}
+            {% for skill in analysis.skill_gaps_list %}
+              <span class="skill-badge gap">{{ skill }}</span>
+            {% endfor %}
+          {% else %}
+            <p style="color: #10b981;">No skill gaps - you're fully qualified!</p>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="skill-section">
+        <h4><i class="fas fa-book" style="color: #667eea;"></i> Recommended Courses</h4>
+        {% if analysis.recommended_courses_list %}
+          <p>{{ analysis.recommended_courses_list|length }} course(s) recommended</p>
+        {% else %}
+          <p style="color: #6b7280;">No courses recommended</p>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="empty-state">
+      <i class="fas fa-folder-open"></i>
+      <h2>No Upskilling History Yet</h2>
+      <p>Start analyzing your skills and get personalized course recommendations!</p>
+      <a href="{% url 'upskilling' %}" class="btn-start">
+        <i class="fas fa-play"></i> Start Upskilling Analysis
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
+

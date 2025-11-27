@@ -1,0 +1,85 @@
+{% extends 'extractor/base.html' %}
+
+{% block title %}Login - AIcruit{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-lg rounded-4 border-0">
+          <div class="card-header bg-primary text-white text-center rounded-top-4">
+            <h4 class="my-2">
+              <i class="fas fa-sign-in-alt me-2"></i>Login to AIcruit
+            </h4>
+          </div>
+
+          <div class="card-body p-4">
+
+            <!-- Django Messages -->
+            {% if messages %}
+            <div class="messages mb-3">
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Login Form -->
+            <form method="post">
+              {% csrf_token %}
+
+              {% if form.non_field_errors %}
+              <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                <p class="mb-0">{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+
+              <div class="mb-3">
+                <label for="id_email" class="form-label">Email</label>
+                <input type="email" name="email" id="id_email" class="form-control" 
+                       required autocomplete="email" placeholder="Enter your email">
+              </div>
+
+              <div class="mb-3">
+                <label for="id_password" class="form-label">Password</label>
+                <input type="password" name="password" id="id_password"
+                       class="form-control{% if form.password.errors %} is-invalid{% endif %}"
+                       required autocomplete="current-password" placeholder="Enter your password">
+                {% if form.password.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.password.errors %}
+                  <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <a href="{% url 'password_reset' %}" class="text-decoration-none small">Forgot Password?</a>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
+            </form>
+
+            <div class="text-center mt-3">
+              <p class="mb-0">Don’t have an account? 
+                <a href="{% url 'signup' %}" class="fw-semibold text-decoration-none">Sign up here</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="card-footer text-center text-muted small rounded-bottom-4">
+            © {{ now|date:"Y" }} AIcruit. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

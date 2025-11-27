@@ -1,0 +1,88 @@
+{% extends 'extractor/base.html' %}
+
+{% block title %}Profile - Resume History{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Profile</h2>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5>User Information</h5>
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="name" class="form-label"><strong>Name:</strong></label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ user_profile.name }}" placeholder="Enter your full name">
+          </div>
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Joined:</strong> {{ user.date_joined|date:"Y-m-d" }}</p>
+      </div>
+    </div>
+    <h3>Your Resume Upload History</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Uploaded At</th>
+          <th>Skills</th>
+          <th>Summary</th>
+          <th>Experience</th>
+          <th>Education</th>
+          <th>Projects</th>
+          <th>Achievements</th>
+          <th>GitHub Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for resume in resumes %}
+        <tr>
+          <td>{{ resume.file.name|default:"N/A" }}</td>
+          <td>{{ resume.uploaded_at|date:"Y-m-d H:i" }}</td>
+          <td>{{ resume.skills|truncatechars:50 }}</td>
+          <td>{{ resume.summary|truncatechars:100 }}</td>
+          <td>{{ resume.experience }}</td>
+          <td>{{ resume.education|truncatechars:50 }}</td>
+          <td>{{ resume.projects|truncatechars:50 }}</td>
+          <td>{{ resume.achievements|truncatechars:50 }}</td>
+          <td><a href="{{ resume.github_links }}" target="_blank">{{ resume.github_links|truncatechars:30 }}</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="9" class="text-center">No resumes uploaded yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>Your Upskilling Analysis History</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Target Job Role</th>
+          <th>Created At</th>
+          <th>Skills Detected</th>
+          <th>Skill Gaps</th>
+          <th>Recommended Courses</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for analysis in upskilling_analyses %}
+        <tr>
+          <td>{{ analysis.target_job_role }}</td>
+          <td>{{ analysis.created_at|date:"Y-m-d H:i" }}</td>
+          <td>{{ analysis.skills_detected_list|join:", "|truncatechars:50 }}</td>
+          <td>{{ analysis.skill_gaps_list|join:", "|truncatechars:50 }}</td>
+          <td>{{ analysis.recommended_courses_list|join:", "|truncatechars:50 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center">No upskilling analyses yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

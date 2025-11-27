@@ -1,0 +1,48 @@
+{% extends 'extractor/base.html' %}
+
+{% block title %}Resume Upload History{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Your Resume Upload History</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Uploaded At</th>
+          <th>Skills</th>
+          <th>Summary</th>
+          <th>Experience</th>
+          <th>Education</th>
+          <th>Projects</th>
+          <th>Achievements</th>
+          <th>GitHub Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>resume1.pdf</td>
+          <td>2023-10-01 10:00</td>
+          <td>Python, Django</td>
+          <td>Experienced developer...</td>
+          <td>5 years</td>
+          <td>Bachelor's in CS</td>
+          <td>E-commerce site</td>
+          <td>Team lead</td>
+          <td>https://github.com/user</td>
+        </tr>
+        <tr>
+          <td>resume2.pdf</td>
+          <td>2023-09-15 14:30</td>
+          <td>JavaScript, React</td>
+          <td>Frontend specialist...</td>
+          <td>3 years</td>
+          <td>Master's in IT</td>
+          <td>Chat app</td>
+          <td>Award winner</td>
+          <td>https://github.com/user2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

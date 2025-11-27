@@ -1,0 +1,569 @@
+
+
+{% extends 'extractor/base.html' %}
+
+{% block title %}AI Resume Detection - Smart Hiring with AI{% endblock %}
+
+{% block content %}
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="{% url 'index' %}" class="logo">AIcruit</a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="{% url 'ats_checker' %}">ATS Checker</a></li>
+        <li><a href="{% url 'upskilling' %}" style="color: #fbbf24;"><i class="fas fa-graduation-cap"></i> Upskilling</a></li>
+        <li><a href="{% url 'job_recommendation:job_recommendation' %}" style="color: #f59e0b;"><i class="fas fa-briefcase"></i> Jobs</a></li>
+        <li><a href="#contact">Contact</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li><a href="{% url 'logout' %}" class="btn-login">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}" class="btn-login">Login</a></li>
+        {% endif %}
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="container hero-container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content">
+          <h1 class="hero-title">Navigate Your Career with Intelligence.</h1>
+          <p class="hero-subtitle">Enhance your resume, discover what's right for you, and grow confidently.</p>
+          <div class="hero-buttons">
+            <a href="{% url 'ats_checker' %}" class="btn btn-success btn-lg me-3">ATS Checker</a>
+            <a href="{% url 'upskilling' %}" class="btn btn-warning btn-lg me-3" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;"><i class="fas fa-graduation-cap"></i> AI Upskilling</a>
+            <a href="{% url 'job_recommendation:job_recommendation' %}" class="btn btn-lg me-3" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border: none; color: white;"><i class="fas fa-briefcase"></i> Job Recommendation</a>
+            <a href="#features" class="btn btn-outline-light btn-lg">Explore Features</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">Improving Resumes</span>
+              <span class="stat-label">Every Day</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">90%</span>
+              <span class="stat-label">Accuracy Rate</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">Designed for Real</span>
+              <span class="stat-label">Career Growth</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-image">
+          <div class="hero-image-container">
+            <img src="https://img.icons8.com/fluency/400/resume.png" alt="AI Resume Analysis" class="img-fluid animate__animated animate__fadeInRight">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="row text-center mb-5">
+        <div class="col-12">
+          <h2 class="section-title">Powerful AI Features for Modern Hiring</h2>
+          <p class="section-subtitle">Leverage cutting-edge AI technology to streamline your recruitment process and find the perfect candidates.</p>
+        </div>
+      </div>
+      <div class="row features-grid">
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+            <div class="feature-icon">
+              <i class="fas fa-handshake"></i>
+            </div>
+            <h3>Smart Job Matching</h3>
+            <p>Match candidates with the best-fit roles using advanced AI algorithms and comprehensive skill analysis.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a href="{% url 'upskilling' %}" style="text-decoration: none; color: inherit;">
+            <div class="feature-card animate__animated animate__fadeInUp clickable-card" style="animation-delay: 0.2s;">
+              <div class="feature-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3>Skill Gap Analysis</h3>
+              <p>Identify skill gaps in candidates to recommend training or highlight areas for improvement.</p>
+              <div class="card-cta">
+                <i class="fas fa-arrow-right"></i> Try Now
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a href="{% url 'ats_checker' %}" style="text-decoration: none; color: inherit;">
+            <div class="feature-card animate__animated animate__fadeInUp clickable-card" style="animation-delay: 0.4s;">
+              <div class="feature-icon">
+                <i class="fas fa-check-double"></i>
+              </div>
+              <h3>ATS Compatibility Checker</h3>
+              <p>Check how well your resume passes Applicant Tracking Systems for better job matching.</p>
+              <div class="card-cta">
+                <i class="fas fa-arrow-right"></i> Check Now
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a href="{% url 'job_recommendation:job_recommendation' %}" style="text-decoration: none; color: inherit;">
+            <div class="feature-card animate__animated animate__fadeInUp clickable-card" style="animation-delay: 0.5s;">
+              <div class="feature-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                <i class="fas fa-briefcase"></i>
+              </div>
+              <h3>AI Job Recommendation</h3>
+              <p>Get personalized job role recommendations based on your skills and find live jobs on LinkedIn.</p>
+              <div class="card-cta">
+                <i class="fas fa-arrow-right"></i> Find Jobs
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-6 text-center mb-4">
+          <div class="stat-card">
+            <h4 class="stat-number">AI-Powered</h4>
+            <p class="stat-label">Resume Insights</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 text-center mb-4">
+          <div class="stat-card">
+            <h4 class="stat-number">Career Guidance</h4>
+            <p class="stat-label">For Everyone</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 text-center mb-4">
+          <div class="stat-card">
+            <h4 class="stat-number">90%</h4>
+            <p class="stat-label">Accuracy Rate</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 text-center mb-4">
+          <div class="stat-card">
+            <h4 class="stat-number">24/7</h4>
+            <p class="stat-label">AI Availability</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title">Demo ATS Checker</h2>
+          <p class="section-subtitle">Upload your resume and paste a job description to get a quick ATS compatibility score and short analysis.</p>
+          <ul class="demo-features">
+            <li><i class="fas fa-check text-success"></i> Quick ATS score</li>
+            <li><i class="fas fa-check text-success"></i> Short skill analysis</li>
+            <li><i class="fas fa-check text-success"></i> Instant results</li>
+            <li><i class="fas fa-check text-success"></i> For detailed analysis, use the full ATS Checker</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="demo-content">
+            <form id="demoAtsForm" method="post" enctype="multipart/form-data" action="{% url 'index' %}" class="demo-form">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="demoJobDescription" class="form-label">Job Description (Optional for Demo)</label>
+                <textarea name="demo_job_description" id="demoJobDescription" class="form-control" rows="3" placeholder="Paste a brief job description for better analysis..."></textarea>
+              </div>
+              <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <p class="upload-text">Drag & drop your resume here or <span class="upload-link">browse files</span></p>
+                <input type="file" id="resumeInput" name="file" accept=".pdf,.doc,.docx" required style="display: none;">
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg w-100" id="demoAtsBtn" onclick="return validateDemoForm()">Check ATS Score</button>
+            </form>
+            <script>
+              function validateDemoForm() {
+                var fileInput = document.getElementById('resumeInput');
+                if (!fileInput.value) {
+                  alert('Please select a resume file to upload.');
+                  return false;
+                }
+                return true;
+              }
+            </script>
+            <div class="demo-note">
+              <small class="text-muted">Supported formats: PDF, DOC, DOCX. Max file size: 10MB</small>
+            </div>
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger mt-3">
+              {% for error in form.non_field_errors %}
+              {{ error }}
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% if demo_message %}
+  <div class="alert alert-success mt-4">
+    {{ demo_message }}
+  </div>
+  {% endif %}
+
+  {% if demo_ats_score %}
+  <div class="card shadow mt-4" id="demo-results">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Demo ATS Check Results</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <p><strong>ATS Score:</strong> <span class="text-success">{{ demo_ats_score }}%</span></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          {% if demo_matched_skills %}
+          <p><strong>Matched Skills:</strong> {{ demo_matched_skills }}</p>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          {% if demo_missing_skills %}
+          <p><strong>Missing Skills:</strong> {{ demo_missing_skills }}</p>
+          {% endif %}
+        </div>
+      </div>
+      <p class="text-muted">For detailed analysis, use the full <a href="{% url 'ats_checker' %}">ATS Checker</a>.</p>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if message %}
+  <div class="alert alert-info mt-4">
+    {{ message }}
+  </div>
+  {% endif %}
+
+  {% if skills or summary or experience %}
+  <div class="card shadow mt-4" id="results">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">Extracted Information</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 mb-3">
+          {% if short_summary %}
+          <p><strong>Short Summary:</strong> {{ short_summary }}</p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          {% if summary %}
+          <p><strong>Summary:</strong> {{ summary }}</p>
+          {% endif %}
+          {% if experience %}
+          <p><strong>Experience:</strong> {{ experience }}</p>
+          {% endif %}
+          {% if skills %}
+          <p><strong>Skills:</strong> {{ skills }}</p>
+          {% endif %}
+          {% if total_experience %}
+          <p><strong>Total Experience:</strong> {{ total_experience }}</p>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          {% if achievements %}
+          <p><strong>Achievements:</strong> {{ achievements }}</p>
+          {% endif %}
+          {% if projects %}
+          <p><strong>Projects:</strong> {{ projects }}</p>
+          {% endif %}
+          {% if education %}
+          <p><strong>Education:</strong> {{ education }}</p>
+          {% endif %}
+          {% if github_links %}
+          <p><strong>GitHub Links:</strong> {{ github_links }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>AIcruit</h3>
+        <p>Your career companion<br> helping you polish your resume,<br>explore roles<br>and grow with confidence.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="{% url 'ats_checker' %}">ATS Checker</a></li>
+          <li><a href="{% url 'upskilling' %}"><i class="fas fa-graduation-cap"></i> Upskilling</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: <a href="mailto:monu.maurya@example.com">abc_123@example.com</a></p>
+        <p>Phone: <a href="tel:+911234567890">+91 12345 67890</a></p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/monumaurya/" target="_blank">LinkedIn</a> |
+          <a href="https://github.com/monumaurya" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 ResumeAI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Chat Widget
+  <div id="chat-widget" class="chat-widget">
+    <div class="chat-header">
+      <span>Chat with Resume Assistant</span>
+      <button id="close-chat" class="close-btn">&times;</button>
+    </div>
+    <div id="chat-container" class="chat-container">
+      <div class="bot-message">
+        <strong>Bot:</strong> Hello! I'm your Resume Detection Assistant. How can I help you today? Ask me about uploading resumes, ATS checking, or analysis.
+      </div>
+    </div>
+    <div class="chat-input-container">
+      <input type="text" id="chat-input" class="chat-input" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage();">
+      <button id="send-btn" class="send-btn" onclick="sendMessage();">Send</button>
+    </div>
+  </div>
+
+  Chat Toggle Icon -->
+  <!-- <div id="chat-toggle" class="chat-toggle">
+    <i class="fas fa-comments"></i>
+  </div> -->
+
+  <!-- JS -->
+  <script>
+    // Navbar Hamburger Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+
+    // Upload area click
+    const uploadArea = document.getElementById('uploadArea');
+    const resumeInput = document.getElementById('resumeInput');
+    uploadArea.addEventListener('click', () => resumeInput.click());
+
+    {% if scroll_to %}
+    document.getElementById('{{ scroll_to }}').scrollIntoView({behavior: 'smooth'});
+    {% endif %}
+
+    // // Chat Widget Functionality
+    // const chatWidget = document.getElementById('chat-widget');
+    // const chatToggle = document.getElementById('chat-toggle');
+    // const closeChat = document.getElementById('close-chat');
+    // const chatContainer = document.getElementById('chat-container');
+    // const chatInput = document.getElementById('chat-input');
+    // const sendBtn = document.getElementById('send-btn');
+
+    // // Toggle chat widget
+    // chatToggle.addEventListener('click', () => {
+    //   chatWidget.style.display = chatWidget.style.display === 'flex' ? 'none' : 'flex';
+    // });
+
+    // // Close chat widget
+    // closeChat.addEventListener('click', () => {
+    //   chatWidget.style.display = 'none';
+    // });
+
+    // // Send message function
+    // function sendMessage() {
+    //   const message = chatInput.value.trim();
+    //   if (!message) return;
+
+    //   // Add user message
+    //   chatContainer.innerHTML += `<div class="user-message"><strong>You:</strong> ${message}</div>`;
+    //   chatInput.value = '';
+
+    //   // Show typing indicator
+    //   chatContainer.innerHTML += '<div class="bot-message typing"><strong>Bot:</strong> Typing...</div>';
+    //   chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    //   // Send AJAX request to chat API
+    //   fetch('/api/chat/', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'X-CSRFToken': '{{ csrf_token }}'
+    //     },
+    //     body: JSON.stringify({ message: message })
+    //   })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     // Remove typing indicator
+    //     const typingDiv = chatContainer.querySelector('.typing');
+    //     if (typingDiv) typingDiv.remove();
+
+    //     // Add bot response
+    //     chatContainer.innerHTML += `<div class="bot-message"><strong>Bot:</strong> ${data.response}</div>`;
+    //     chatContainer.scrollTop = chatContainer.scrollHeight;
+    //   })
+    //   .catch(error => {
+    //     // Remove typing indicator
+    //     const typingDiv = chatContainer.querySelector('.typing');
+    //     if (typingDiv) typingDiv.remove();
+
+    //     // Add error message
+    //     chatContainer.innerHTML += '<div class="bot-message"><strong>Bot:</strong> Sorry, I\'m having trouble responding right now. Please try again later.</div>';
+    //     chatContainer.scrollTop = chatContainer.scrollHeight;
+    //     console.error('Error:', error);
+    //   });
+    // }
+  </script>
+
+  <!-- <style>
+    /* Chat Widget Styles */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 350px;
+      height: 500px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #007bff;
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .chat-container {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #f8f9fa;
+    }
+
+    .chat-container .bot-message,
+    .chat-container .user-message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .chat-container .bot-message {
+      background: #e9ecef;
+      align-self: flex-start;
+    }
+
+    .chat-container .user-message {
+      background: #007bff;
+      color: #fff;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .chat-input-container {
+      display: flex;
+      padding: 10px;
+      background: #fff;
+      border-top: 1px solid #dee2e6;
+    }
+
+    .chat-input {
+      flex: 1;
+      border: 1px solid #dee2e6;
+      border-radius: 20px;
+      padding: 8px 15px;
+      outline: none;
+    }
+
+    .send-btn {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .send-btn:hover {
+      background: #0056b3;
+    }
+
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #007bff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+
+    .chat-toggle:hover {
+      background: #0056b3;
+    }
+
+    .chat-toggle i {
+      font-size: 24px;
+    }
+  </style> -->
+{% endblock %}

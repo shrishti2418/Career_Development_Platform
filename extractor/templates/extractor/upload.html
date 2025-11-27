@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Resume</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body { background-color: #f8f9fa; }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Upload Resume</h2>
+          </div>
+          <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="id_file" class="form-label">Resume</label>
+                <input type="file" name="file" id="id_file" class="form-control" accept=".pdf,.doc,.docx" required>
+              </div>
+              <div class="mb-3">
+                <label for="job_description" class="form-label">Job Description (Optional - for ATS Check)</label>
+                <textarea name="job_description" id="job_description" class="form-control" rows="5" placeholder="Paste the job description here to perform an ATS compatibility check..."></textarea>
+                <small class="form-text text-muted">Leave blank if you only want to upload and extract resume data.</small>
+              </div>
+              <button type="submit" class="btn btn-primary">Upload & Process</button>
+            </form>
+          </div>
+        </div>
+
+        {% if message %}
+        <div class="alert alert-info mt-4">
+          {{ message }}
+        </div>
+        {% endif %}
+
+        {% if ats_result %}
+        <div class="card shadow mt-4">
+          <div class="card-header bg-info text-white">
+            <h5 class="mb-0">ATS Analysis Results</h5>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <h4>ATS Score: <span class="text-success">{{ ats_result.match_percentage }}%</span></h4>
+              <p><strong>Total Keywords in Job Description:</strong> {{ ats_result.total_jd_skills }}</p>
+              <p><strong>Matched Keywords:</strong> {{ ats_result.match_count }}</p>
+            </div>
+
+            <div class="mb-4">
+              <h4>Matched Keywords ({{ ats_result.matched_skills|length }})</h4>
+              <div class="p-2 bg-success text-white rounded">
+                {% for skill in ats_result.matched_skills %}
+                  <span class="badge bg-light text-dark me-1">{{ skill }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h4>Missing Keywords ({{ ats_result.missing_skills|length }})</h4>
+              <div class="p-2 bg-danger text-white rounded">
+                {% for skill in ats_result.missing_skills %}
+                  <span class="badge bg-light text-dark me-1">{{ skill }}</span>
+                {% endfor %}
+                <p class="mt-2 mb-0">Consider adding these keywords to improve your ATS score.</p>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h4>Resume Preview</h4>
+              <div class="p-2 bg-light rounded" style="max-height: 200px; overflow-y: auto;">
+                <pre class="mb-0" style="font-size: 12px;">{{ resume_text }}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if skills or summary or experience %}
+        <div class="card shadow mt-4">
+          <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Extracted Information</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 mb-3">
+                {% if short_summary %}
+                <p><strong>Short Summary:</strong> {{ short_summary }}</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                {% if summary %}
+                <p><strong>Summary:</strong> {{ summary }}</p>
+                {% endif %}
+                {% if experience %}
+                <p><strong>Experience:</strong> {{ experience }}</p>
+                {% endif %}
+                {% if skills %}
+                <p><strong>Skills:</strong> {{ skills }}</p>
+                {% endif %}
+                {% if total_experience %}
+                <p><strong>Total Experience:</strong> {{ total_experience }}</p>
+                {% endif %}
+              </div>
+              <div class="col-md-6">
+                {% if achievements %}
+                <p><strong>Achievements:</strong> {{ achievements }}</p>
+                {% endif %}
+                {% if projects %}
+                <p><strong>Projects:</strong> {{ projects }}</p>
+                {% endif %}
+                {% if education %}
+                <p><strong>Education:</strong> {{ education }}</p>
+                {% endif %}
+                {% if github_links %}
+                <p><strong>GitHub Links:</strong> {{ github_links }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

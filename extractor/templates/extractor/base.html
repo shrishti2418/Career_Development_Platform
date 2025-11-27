@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}AI cruit - Smart Resume Screening & Job Matching AI{% endblock %}</title>
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Global */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+    }
+    a { text-decoration: none; }
+    ul { list-style: none; padding: 0; margin: 0; }
+
+    /* Navbar */
+    .navbar {
+      background-color: #1f2937;
+      color: #fff;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .navbar .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #ff7f50;
+    }
+    .navbar .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+    .navbar .nav-links a {
+      color: #fff;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .navbar .nav-links a:hover { color: #ff7f50; }
+    .navbar .btn-login {
+      background-color: #ff7f50;
+      padding: 8px 18px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .navbar .btn-login:hover { background-color: #ff5722; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: #fff;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #4b6cb7, #182848);
+      color: #fff;
+      padding: 100px 20px;
+      overflow: hidden;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/circuit-board.png');
+      opacity: 0.1;
+      z-index: 1;
+    }
+    .hero-container {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      z-index: 2;
+    }
+    .hero-content { flex: 1 1 500px; padding: 20px; }
+    .hero-content h1 { font-size: 2.8em; margin-bottom: 20px; }
+    .hero-content p { font-size: 1.2em; line-height: 1.6; margin-bottom: 30px; }
+    .hero-buttons a {
+      padding: 12px 30px;
+      margin-right: 15px;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .btn-primary { background-color: #ff7f50; color: #fff; }
+    .btn-primary:hover { background-color: #ff5722; }
+    .btn-secondary { background-color: #e5e7eb; color: #1f2937; }
+    .btn-secondary:hover { background-color: #d1d5db; }
+    .hero-image { flex: 1 1 400px; padding: 20px; text-align: center; }
+    .hero-image img { max-width: 100%; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+
+    /* Features */
+    .features {
+      background-color: #f8f9fa;
+      padding: 80px 20px;
+      color: #1f2937;
+      text-align: center;
+    }
+    .features h2 { font-size: 2.5em; margin-bottom: 10px; }
+    .features p { font-size: 1.1em; color: #4b5563; margin-bottom: 50px; }
+    .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+    .feature-card {
+      background-color: #fff;
+      flex: 1 1 250px;
+      max-width: 280px;
+      padding: 30px 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .feature-card img { width: 60px; margin-bottom: 20px; }
+    .feature-card h3 { font-size: 1.3em; margin-bottom: 15px; }
+    .feature-card p { font-size: 0.95em; color: #4b5563; line-height: 1.5; }
+    .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+    
+    /* Clickable Feature Card */
+    .clickable-card {
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .clickable-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+      border: 2px solid #667eea;
+    }
+    .card-cta {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border-radius: 25px;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 0.9em;
+      transition: all 0.3s;
+    }
+    .clickable-card:hover .card-cta {
+      transform: translateX(5px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Demo */
+    .demo { background-color: #fff; padding: 80px 20px; color: #1f2937; text-align: center; }
+    .demo-content { display: flex; flex-direction: column; align-items: center; max-width: 700px; margin: 40px auto 0 auto; }
+    #resumeForm { display: flex; flex-direction: column; align-items: center; width: 100%; }
+    #resumeInput { padding: 12px; margin-bottom: 20px; width: 100%; border-radius: 5px; border: 1px solid #d1d5db; font-size: 1em; }
+    #resumeForm button {
+      padding: 12px 30px;
+      border-radius: 5px;
+      border: none;
+      background-color: #1f2937;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #resumeForm button:hover { background-color: #111827; }
+    .demo-result { margin-top: 40px; width: 100%; background-color: #f3f4f6; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
+    .demo-result h3 { margin-bottom: 15px; }
+    .demo-result p { color: #4b5563; }
+
+    /* Footer */
+    .footer { background-color: #1f2937; color: #fff; padding: 60px 20px 30px 20px; }
+    .footer-container { display: flex; flex-wrap: wrap; gap: 40px; max-width: 1200px; margin: 0 auto; justify-content: space-between; }
+    .footer h3 { font-size: 1.5em; margin-bottom: 15px; }
+    .footer h4 { font-size: 1.1em; margin-bottom: 10px; }
+    .footer p, .footer a { color: #d1d5db; font-size: 0.95em; }
+    .footer a:hover { color: #ff7f50; }
+    .footer-links li { margin-bottom: 8px; }
+    .footer-social a { margin-right: 10px; font-weight: 500; }
+    .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; margin-top: 40px; font-size: 0.9em; color: #9ca3af; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-container { flex-direction: column-reverse; text-align: center; }
+      .features-grid { flex-direction: column; align-items: center; }
+      #resumeForm { width: 100%; }
+      .footer-container { flex-direction: column; text-align: center; gap: 30px; }
+      .hamburger { display: flex; }
+      .nav-links { display: none; flex-direction: column; background-color: #1f2937; width: 100%; position: absolute; top: 60px; left: 0; }
+      .nav-links.active { display: flex; }
+      .nav-links li { margin: 15px 0; text-align: center; }
+    }
+  </style>
+
+  <!-- Chatbot Styles -->
+  <style>
+    /* Chatbot Widget */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 350px;
+      height: 500px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      z-index: 1001;
+    }
+    .chatbot-header {
+      background-color: #1f2937;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chatbot-header h4 { margin: 0; font-size: 1.1em; }
+    .chatbot-close { cursor: pointer; font-size: 1.2em; }
+    .chatbot-body {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+    }
+    .chatbot-footer {
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      background-color: #fff;
+      border-radius: 0 0 10px 10px;
+    }
+    .chatbot-input-group {
+      display: flex;
+    }
+    .chatbot-input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px 0 0 5px;
+    }
+    .chatbot-send {
+      padding: 8px 15px;
+      background-color: #ff7f50;
+      color: #fff;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+    .chatbot-send:hover { background-color: #ff5722; }
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #ff7f50;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      font-size: 1.5em;
+    }
+    .chatbot-toggle:hover { background-color: #ff5722; }
+    .message { margin-bottom: 10px; }
+    .user-message { text-align: right; }
+    .bot-message { text-align: left; }
+  </style>
+</head>
+<body>
+{% block content %}
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="logo">AICruit</a>
+      <ul class="nav-links">
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="{% url 'ats_checker' %}">ATS Checker</a></li>
+        <li><a href="{% url 'upskilling' %}" style="color: #fbbf24;"><i class="fas fa-graduation-cap"></i> Upskilling</a></li>
+        <li><a href="#contact">Contact</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}" class="btn-login">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}" class="btn-login">Login</a></li>
+        {% endif %}
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Navigate Your Career with Intelligence.</h1>
+        <p>Enhance your resume, discover what's right for you, and grow confidently.</p>
+        <div class="hero-buttons">
+          <a href="#demo" class="btn-primary">Try Demo</a>
+          <a href="#features" class="btn-secondary">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://via.placeholder.com/500x400.png?text=AI+Resume+Analysis" alt="AI Resume Analysis">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <h2>Key Features</h2>
+    <p>AI-powered tools to simplify hiring and improve candidate-job matching</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <img src="https://img.icons8.com/ios-filled/100/000000/resume.png" alt="Resume Screening">
+        <h3>AI Resume Screening</h3>
+        <p>Automatically analyze resumes to identify top candidates faster and reduce manual effort.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://img.icons8.com/ios-filled/100/000000/job.png" alt="Job Matching">
+        <h3>Smart Job Matching</h3>
+        <p>Match candidates with the best-fit roles using advanced AI algorithms and skill analysis.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://img.icons8.com/ios-filled/100/000000/analytics.png" alt="Skill Gap">
+        <h3>Skill Gap Analysis</h3>
+        <p>Identify skill gaps in candidates to recommend training or highlight areas for improvement.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://img.icons8.com/ios-filled/100/000000/checklist.png" alt="Automated Shortlisting">
+        <h3>Automated Shortlisting</h3>
+        <p>Reduce time-to-hire by automatically shortlisting the most relevant resumes for each role.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section class="demo" id="demo">
+    <h2>Try Our Demo</h2>
+    <p>Upload a resume and see how our AI analyzes and matches candidates to jobs</p>
+    <div class="demo-content">
+      <form id="resumeForm">
+        <input type="file" id="resumeInput" accept=".pdf,.doc,.docx" required>
+        <button type="submit" class="btn-primary">Analyze Resume</button>
+      </form>
+      <div class="demo-result" id="demoResult">
+        <h3>Analysis Result</h3>
+        <p>No resume uploaded yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>AIcruit</h3>
+        <p>Your career companion—helping you polish your resume,<br> explore roles, <br>and grow with confidence. </p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#demo">Demo</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: <a href="mailto:AIcruit@example.com">AIcruit@example.com</a></p>
+        <p>Phone: <a href="tel:+911234567890">+91 12345 67890</a></p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/monumaurya/" target="_blank">LinkedIn</a> |
+          <a href="https://github.com/monumaurya" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 ResumeAI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Navbar Hamburger Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+
+    // Demo Form Mock Analysis
+    const resumeForm = document.getElementById('resumeForm');
+    const resumeInput = document.getElementById('resumeInput');
+    const demoResult = document.getElementById('demoResult');
+
+    resumeForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fileName = resumeInput.files[0]?.name || "Unknown file";
+      demoResult.innerHTML = `
+        <h3>Analysis Result</h3>
+        <p><strong>File Uploaded:</strong> ${fileName}</p>
+        <p><strong>Resume Score:</strong> 87%</p>
+        <p><strong>Best Matching Role:</strong> Backend Developer</p>
+        <p><strong>Skills Matched:</strong> Python, Flask, SQL, AI/ML</p>
+      `;
+    });
+  </script>
+
+  <!-- Chatbot Widget -->
+  <div class="chatbot-widget" id="chatbotWidget">
+    <div class="chatbot-header">
+      <h4>AIcruit</h4>
+      <span class="chatbot-close" onclick="toggleChatbot()">&times;</span>
+    </div>
+    <div class="chatbot-body" id="chatbotBody">
+      <div class="message bot-message">
+        <strong>Bot:</strong> Hello! I'm your Resume Detection Assistant. How can I help you today? Ask me about uploading resumes, ATS checking, or analysis.
+      </div>
+    </div>
+    <div class="chatbot-footer">
+      <div class="chatbot-input-group">
+        <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage();">
+        <button class="chatbot-send" onclick="sendMessage();">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chatbot Toggle Button -->
+  <div class="chatbot-toggle" onclick="toggleChatbot()">
+    <i class="fas fa-comments"></i>
+  </div>
+
+  <!-- Chatbot JS -->
+  <script>
+    function toggleChatbot() {
+      const widget = document.getElementById('chatbotWidget');
+      widget.style.display = widget.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatbotInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Add user message
+      const body = document.getElementById('chatbotBody');
+      body.innerHTML += `<div class="message user-message"><strong>You:</strong> ${message}</div>`;
+      input.value = '';
+
+      // Show typing indicator
+      body.innerHTML += '<div class="message bot-message"><strong>Bot:</strong> Typing...</div>';
+      body.scrollTop = body.scrollHeight;
+
+      // Simulate bot response
+      setTimeout(() => {
+        // Remove typing indicator
+        const typingDiv = body.lastElementChild;
+        if (typingDiv && typingDiv.textContent.includes('Typing...')) {
+          typingDiv.remove();
+        }
+        // Add bot response
+        const responses = [
+          "Sure, I can help with that. Please upload your resume for analysis.",
+          "For ATS checking, make sure your resume includes relevant keywords from the job description.",
+          "I can analyze your resume for skills, experience, and more. What would you like to know?",
+          "Feel free to ask me anything about resume optimization or job matching."
+        ];
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        body.innerHTML += `<div class="message bot-message"><strong>Bot:</strong> ${randomResponse}</div>`;
+        body.scrollTop = body.scrollHeight;
+      }, 1000);
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+</body>
+</html>

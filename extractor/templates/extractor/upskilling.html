@@ -1,0 +1,483 @@
+{% extends "extractor/base.html" %}
+
+{% block title %}AI Upskilling Recommendations - AICruit{% endblock %}
+
+{% block content %}
+<style>
+  /* Upskilling Page Styles */
+  .upskilling-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 80px 20px;
+    text-align: center;
+  }
+  .upskilling-hero h1 {
+    font-size: 2.8em;
+    margin-bottom: 15px;
+  }
+  .upskilling-hero p {
+    font-size: 1.2em;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .upskilling-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  .upskill-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    margin-bottom: 30px;
+  }
+  .form-group {
+    margin-bottom: 25px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1f2937;
+    font-size: 1.05em;
+  }
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+  }
+  .form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+  .file-upload-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+  }
+  .file-upload-input {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f3f4f6;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .file-upload-label:hover {
+    background-color: #e5e7eb;
+    border-color: #667eea;
+  }
+  .file-upload-label i {
+    font-size: 2em;
+    margin-right: 15px;
+    color: #667eea;
+  }
+  .file-name {
+    margin-top: 10px;
+    font-size: 0.95em;
+    color: #4b5563;
+  }
+  .btn-analyze {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+  .btn-analyze:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+  .btn-analyze:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .loading-spinner {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
+  }
+  .loading-spinner i {
+    font-size: 2em;
+    color: #667eea;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .results-section {
+    display: none;
+    margin-top: 30px;
+  }
+  .result-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-bottom: 20px;
+  }
+  .result-card h3 {
+    color: #1f2937;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+  }
+  .skill-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 6px 12px;
+    border-radius: 15px;
+    margin: 5px;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+  .skill-badge.matched {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  .skill-badge.missing {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .match-percentage {
+    font-size: 3em;
+    font-weight: bold;
+    color: #667eea;
+    text-align: center;
+    margin: 20px 0;
+  }
+  .course-item {
+    background: #f9fafb;
+    border-left: 4px solid #667eea;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    transition: transform 0.2s;
+  }
+  .course-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  .course-item h4 {
+    margin: 0 0 10px 0;
+    color: #1f2937;
+  }
+  .course-meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #6b7280;
+  }
+  .course-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .course-link:hover {
+    text-decoration: underline;
+  }
+  .alert {
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+  }
+  .alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+  }
+  .summary-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .summary-box p {
+    font-size: 1.1em;
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>
+
+<!-- Hero Section -->
+<section class="upskilling-hero">
+  <h1><i class="fas fa-graduation-cap"></i> AI Upskilling Recommendations</h1>
+  <p>Get personalized course recommendations based on your resume and target job role. 100% free AI-powered analysis.</p>
+</section>
+
+<!-- Main Container -->
+<div class="upskilling-container">
+  
+  <!-- Upload Form -->
+  <div class="upskill-card">
+    <h2 style="margin-bottom: 30px; color: #1f2937;">
+      <i class="fas fa-chart-line"></i> Analyze Your Skills
+    </h2>
+    
+    <form id="upskillingForm" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <!-- Resume Upload -->
+      <div class="form-group">
+        <label for="resumeFile">
+          <i class="fas fa-file-upload"></i> Upload Your Resume (PDF/DOCX)
+        </label>
+        <div class="file-upload-wrapper">
+          <input type="file" id="resumeFile" name="resume_file" class="file-upload-input" accept=".pdf,.docx" required>
+          <div class="file-upload-label">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>Click to upload or drag and drop</span>
+          </div>
+        </div>
+        <div class="file-name" id="fileName"></div>
+      </div>
+      
+      <!-- Target Job Role -->
+      <div class="form-group">
+        <label for="jobRole">
+          <i class="fas fa-briefcase"></i> Target Job Role
+        </label>
+        <input type="text" id="jobRole" name="target_job_role" class="form-control" 
+               placeholder="e.g., Full Stack Developer, Data Scientist, DevOps Engineer" 
+               list="jobRolesList" required>
+        <datalist id="jobRolesList">
+          {% for role in job_roles %}
+          <option value="{{ role }}">
+          {% endfor %}
+        </datalist>
+      </div>
+      
+      <!-- Submit Button -->
+      <button type="submit" class="btn-analyze" id="analyzeBtn">
+        <i class="fas fa-search"></i> Analyze & Get Recommendations
+      </button>
+    </form>
+    
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+      <i class="fas fa-spinner"></i>
+      <p>Analyzing your resume with AI... This may take 10-20 seconds.</p>
+    </div>
+    
+    <!-- Error Message -->
+    <div id="errorMessage"></div>
+  </div>
+  
+  <!-- Results Section -->
+  <div class="results-section" id="resultsSection">
+    
+    <!-- Summary -->
+    <div class="summary-box" id="summaryBox"></div>
+    
+    <!-- Match Percentage -->
+    <div class="result-card">
+      <h3><i class="fas fa-percentage"></i> Skill Match Score</h3>
+      <div class="match-percentage" id="matchPercentage">0%</div>
+      <p style="text-align: center; color: #6b7280;">
+        <span id="matchedCount">0</span> out of <span id="totalRequired">0</span> skills matched
+      </p>
+    </div>
+    
+    <!-- Skills Detected -->
+    <div class="result-card">
+      <h3><i class="fas fa-check-circle"></i> Skills Detected in Your Resume</h3>
+      <div id="skillsDetected"></div>
+    </div>
+    
+    <!-- Skills Required -->
+    <div class="result-card">
+      <h3><i class="fas fa-list-check"></i> Skills Required for Target Role</h3>
+      <div id="skillsRequired"></div>
+    </div>
+    
+    <!-- Skill Gaps -->
+    <div class="result-card">
+      <h3><i class="fas fa-exclamation-triangle"></i> Skills You Need to Develop</h3>
+      <div id="skillGaps"></div>
+    </div>
+    
+    <!-- Recommended Courses -->
+    <div class="result-card">
+      <h3><i class="fas fa-book"></i> Recommended Courses for You</h3>
+      <div id="recommendedCourses"></div>
+    </div>
+    
+  </div>
+  
+</div>
+
+<script>
+  // File upload handler
+  const fileInput = document.getElementById('resumeFile');
+  const fileName = document.getElementById('fileName');
+  
+  fileInput.addEventListener('change', function(e) {
+    if (this.files && this.files.length > 0) {
+      fileName.innerHTML = `<i class="fas fa-file-alt"></i> ${this.files[0].name}`;
+    }
+  });
+  
+  // Form submission
+  const form = document.getElementById('upskillingForm');
+  const analyzeBtn = document.getElementById('analyzeBtn');
+  const loadingSpinner = document.getElementById('loadingSpinner');
+  const resultsSection = document.getElementById('resultsSection');
+  const errorMessage = document.getElementById('errorMessage');
+  
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Clear previous results and errors
+    errorMessage.innerHTML = '';
+    resultsSection.style.display = 'none';
+    
+    // Show loading
+    analyzeBtn.disabled = true;
+    loadingSpinner.style.display = 'block';
+    
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('resume_file', fileInput.files[0]);
+    formData.append('target_job_role', document.getElementById('jobRole').value);
+    
+    try {
+      // Call API
+      const response = await fetch('{% url "upskilling_analyze_api" %}', {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: formData
+      });
+      
+      // Check if response is OK
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: `Server error: ${response.status} ${response.statusText}` }));
+        showError(errorData.error || `Server returned error ${response.status}`);
+        return;
+      }
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        displayResults(result.data);
+      } else {
+        showError(result.error || 'An error occurred during analysis.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showError(`Failed to connect to the server. Error: ${error.message}. Please check if the server is running and try again.`);
+    } finally {
+      analyzeBtn.disabled = false;
+      loadingSpinner.style.display = 'none';
+    }
+  });
+  
+  function displayResults(data) {
+    // Summary
+    document.getElementById('summaryBox').innerHTML = `<p>${data.summary}</p>`;
+    
+    // Match Percentage
+    const matchPct = data.gap_analysis.match_percentage;
+    document.getElementById('matchPercentage').textContent = matchPct + '%';
+    document.getElementById('matchPercentage').style.color = matchPct >= 70 ? '#10b981' : matchPct >= 50 ? '#f59e0b' : '#ef4444';
+    document.getElementById('matchedCount').textContent = data.gap_analysis.total_matched;
+    document.getElementById('totalRequired').textContent = data.gap_analysis.total_required;
+    
+    // Skills Detected
+    const skillsDetectedHTML = data.skills_detected.map(skill => 
+      `<span class="skill-badge matched">${skill}</span>`
+    ).join('');
+    document.getElementById('skillsDetected').innerHTML = skillsDetectedHTML || '<p>No skills detected.</p>';
+    
+    // Skills Required
+    const skillsRequiredHTML = data.skills_required.map(skill => 
+      `<span class="skill-badge">${skill}</span>`
+    ).join('');
+    document.getElementById('skillsRequired').innerHTML = skillsRequiredHTML;
+    
+    // Skill Gaps
+    const skillGapsHTML = data.gap_analysis.missing_skills.map(skill => 
+      `<span class="skill-badge missing">${skill}</span>`
+    ).join('');
+    document.getElementById('skillGaps').innerHTML = skillGapsHTML || '<p style="color: #10b981;">Great! You have all required skills.</p>';
+    
+    // Recommended Courses
+    let coursesHTML = '';
+    if (data.recommended_courses && data.recommended_courses.length > 0) {
+      data.recommended_courses.forEach((course, index) => {
+        coursesHTML += `
+          <div class="course-item">
+            <h4>${index + 1}. ${course.title}</h4>
+            <p><strong>Platform:</strong> ${course.platform}</p>
+            <div class="course-meta">
+              <span><i class="fas fa-signal"></i> ${course.level}</span>
+              <span><i class="fas fa-clock"></i> ${course.duration}</span>
+              <span><i class="fas fa-star"></i> Relevance: ${(course.relevance_score * 100).toFixed(0)}%</span>
+            </div>
+            ${course.matching_skills.length > 0 ? 
+              `<p><strong>Covers:</strong> ${course.matching_skills.join(', ')}</p>` : ''}
+            <a href="${course.url}" target="_blank" class="course-link">
+              <i class="fas fa-external-link-alt"></i> View Course
+            </a>
+          </div>
+        `;
+      });
+    } else {
+      coursesHTML = '<p>No course recommendations available.</p>';
+    }
+    document.getElementById('recommendedCourses').innerHTML = coursesHTML;
+    
+    // Show results
+    resultsSection.style.display = 'block';
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+  }
+  
+  function showError(message) {
+    errorMessage.innerHTML = `
+      <div class="alert alert-error">
+        <i class="fas fa-exclamation-circle"></i> ${message}
+      </div>
+    `;
+  }
+</script>
+
+{% endblock %}
+

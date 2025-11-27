@@ -1,0 +1,126 @@
+{% extends 'extractor/base.html' %}
+{% load static %}
+
+{% block title %}ATS Checker | AIcruit{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold text-primary">AIcruit</h1>
+    <h3 class="mt-2">ATS Resume Checker</h3>
+    <p class="text-muted">Upload your resume and paste a job description to check your ATS compatibility score.</p>
+  </div>
+
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+  {% endif %}
+
+  <!-- Upload Form -->
+  <form method="post" enctype="multipart/form-data" id="atsForm" class="p-4 border rounded shadow-sm bg-light">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="job_description" class="form-label fw-semibold">Job Description</label>
+      <textarea name="job_description" id="job_description" class="form-control" rows="7"
+        placeholder="Paste the job description here..." required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="resume_file" class="form-label fw-semibold">Upload Resume</label>
+      <input type="file" name="resume_file" id="resume_file" class="form-control" accept=".pdf,.docx" required>
+      <small class="form-text text-muted">Supported formats: PDF, DOCX</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="submitBtn">
+      <span id="btnText">Check ATS Score</span>
+      <span class="spinner-border spinner-border-sm ms-2 d-none" id="loadingSpinner"></span>
+    </button>
+  </form>
+
+  {% if ats_result %}
+  <!-- Results Section -->
+  <div class="mt-5">
+    <hr>
+    <h3 class="mb-4 text-center fw-bold">ATS Analysis Results</h3>
+
+    <!-- ATS Score Progress Bar -->
+    <div class="card mb-4 shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title">ATS Score</h5>
+        <div class="progress" style="height: 25px;">
+          <div class="progress-bar bg-success fw-bold" role="progressbar"
+            style="width: {{ ats_result.match_percentage }}%;"
+            aria-valuenow="{{ ats_result.match_percentage }}" aria-valuemin="0" aria-valuemax="100">
+            {{ ats_result.match_percentage }}%
+          </div>
+        </div>
+        <p class="mt-3 mb-0">
+          <strong>Total Keywords in Job Description:</strong> {{ ats_result.total_jd_skills }} <br>
+          <strong>Matched Keywords:</strong> {{ ats_result.match_count }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Matched & Missing Keywords -->
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card border-success shadow-sm">
+          <div class="card-header bg-success text-white fw-semibold">Matched Keywords</div>
+          <div class="card-body">
+            {% if ats_result.matched_skills %}
+              {% for skill in ats_result.matched_skills %}
+                <span class="badge bg-light text-dark border me-1 mb-1">{{ skill }}</span>
+              {% endfor %}
+            {% else %}
+              <p class="text-muted mb-0">No matched keywords found.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card border-danger shadow-sm">
+          <div class="card-header bg-danger text-white fw-semibold">Missing Keywords</div>
+          <div class="card-body">
+            {% if ats_result.missing_skills %}
+              {% for skill in ats_result.missing_skills %}
+                <span class="badge bg-light text-dark border me-1 mb-1">{{ skill }}</span>
+              {% endfor %}
+              <p class="mt-3 mb-0 text-muted">💡 Add these keywords to improve your ATS score.</p>
+            {% else %}
+              <p class="text-success mb-0">Perfect! No missing keywords 🎉</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resume Preview -->
+    <div class="card mt-4 shadow-sm">
+      <div class="card-header bg-primary text-white fw-semibold">Resume Text Preview</div>
+      <div class="card-body" style="max-height: 250px; overflow-y: auto;">
+        <pre class="mb-0" style="font-size: 13px; white-space: pre-wrap;">{{ resume_text }}</pre>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{% url 'ats_checker' %}" class="btn btn-secondary">Check Another Resume</a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Loading Spinner Script -->
+<script>
+  const atsForm = document.getElementById("atsForm");
+  const spinner = document.getElementById("loadingSpinner");
+  const btnText = document.getElementById("btnText");
+
+  atsForm.addEventListener("submit", () => {
+    spinner.classList.remove("d-none");
+    btnText.textContent = "Checking...";
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,475 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "Python for Everybody Specialization",
+      "platform": "Coursera",
+      "url": "https://www.coursera.org/specializations/python",
+      "skills": ["Python", "Programming", "Data Structures"],
+      "level": "Beginner",
+      "duration": "8 months"
+    },
+    {
+      "id": 2,
+      "title": "Machine Learning Specialization",
+      "platform": "Coursera",
+      "url": "https://www.coursera.org/specializations/machine-learning-introduction",
+      "skills": ["Machine Learning", "AI", "Python", "TensorFlow"],
+      "level": "Intermediate",
+      "duration": "3 months"
+    },
+    {
+      "id": 3,
+      "title": "CS50's Introduction to Computer Science",
+      "platform": "edX",
+      "url": "https://www.edx.org/course/cs50s-introduction-to-computer-science",
+      "skills": ["Computer Science", "Programming", "C", "Python", "SQL"],
+      "level": "Beginner",
+      "duration": "12 weeks"
+    },
+    {
+      "id": 4,
+      "title": "Full Stack Web Development",
+      "platform": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/learn/",
+      "skills": ["HTML", "CSS", "JavaScript", "React", "Node.js", "MongoDB"],
+      "level": "Beginner",
+      "duration": "Self-paced"
+    },
+    {
+      "id": 5,
+      "title": "Docker Tutorial for Beginners",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=fqMOX6JJhGo",
+      "skills": ["Docker", "DevOps", "Containers"],
+      "level": "Beginner",
+      "duration": "3 hours"
+    },
+    {
+      "id": 6,
+      "title": "Kubernetes Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=X48VuDVv0do",
+      "skills": ["Kubernetes", "DevOps", "Cloud"],
+      "level": "Intermediate",
+      "duration": "4 hours"
+    },
+    {
+      "id": 7,
+      "title": "React JS Full Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=bMknfKXIFA8",
+      "skills": ["React", "JavaScript", "Frontend", "Web Development"],
+      "level": "Beginner",
+      "duration": "5 hours"
+    },
+    {
+      "id": 8,
+      "title": "AWS Certified Cloud Practitioner",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=SOTamWNgDKc",
+      "skills": ["AWS", "Cloud Computing", "DevOps"],
+      "level": "Beginner",
+      "duration": "4 hours"
+    },
+    {
+      "id": 9,
+      "title": "Data Science with Python",
+      "platform": "Coursera",
+      "url": "https://www.coursera.org/specializations/data-science-python",
+      "skills": ["Data Science", "Python", "Pandas", "NumPy", "Matplotlib"],
+      "level": "Intermediate",
+      "duration": "5 months"
+    },
+    {
+      "id": 10,
+      "title": "SQL for Data Science",
+      "platform": "Coursera",
+      "url": "https://www.coursera.org/learn/sql-for-data-science",
+      "skills": ["SQL", "Database", "Data Analysis"],
+      "level": "Beginner",
+      "duration": "4 weeks"
+    },
+    {
+      "id": 11,
+      "title": "Django for Beginners",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=F5mRW0jo-U4",
+      "skills": ["Django", "Python", "Backend", "Web Development"],
+      "level": "Beginner",
+      "duration": "6 hours"
+    },
+    {
+      "id": 12,
+      "title": "Flask Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=Z1RJmh_OqeA",
+      "skills": ["Flask", "Python", "Backend", "API"],
+      "level": "Beginner",
+      "duration": "6 hours"
+    },
+    {
+      "id": 13,
+      "title": "Git & GitHub Complete Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=apGV9Kg7ics",
+      "skills": ["Git", "GitHub", "Version Control"],
+      "level": "Beginner",
+      "duration": "2 hours"
+    },
+    {
+      "id": 14,
+      "title": "Data Structures and Algorithms",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=8hly31xKli0",
+      "skills": ["Data Structures", "Algorithms", "Programming"],
+      "level": "Intermediate",
+      "duration": "8 hours"
+    },
+    {
+      "id": 15,
+      "title": "REST API Design",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=SLwpqD8n3d0",
+      "skills": ["REST API", "API Design", "Backend"],
+      "level": "Intermediate",
+      "duration": "1 hour"
+    },
+    {
+      "id": 16,
+      "title": "MongoDB Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=c2M-rlkkT5o",
+      "skills": ["MongoDB", "NoSQL", "Database"],
+      "level": "Beginner",
+      "duration": "4 hours"
+    },
+    {
+      "id": 17,
+      "title": "PostgreSQL Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=qw--VYLpxG4",
+      "skills": ["PostgreSQL", "SQL", "Database"],
+      "level": "Beginner",
+      "duration": "4 hours"
+    },
+    {
+      "id": 18,
+      "title": "Java Programming Masterclass",
+      "platform": "Udemy (Free)",
+      "url": "https://www.udemy.com/course/java-tutorial/",
+      "skills": ["Java", "Programming", "OOP"],
+      "level": "Beginner",
+      "duration": "80 hours"
+    },
+    {
+      "id": 19,
+      "title": "Angular Complete Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=3qBXWUpoPHo",
+      "skills": ["Angular", "TypeScript", "Frontend"],
+      "level": "Intermediate",
+      "duration": "10 hours"
+    },
+    {
+      "id": 20,
+      "title": "Vue.js Full Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=FXpIoQ_rT_c",
+      "skills": ["Vue.js", "JavaScript", "Frontend"],
+      "level": "Beginner",
+      "duration": "3 hours"
+    },
+    {
+      "id": 21,
+      "title": "Node.js Full Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=Oe421EPjeBE",
+      "skills": ["Node.js", "JavaScript", "Backend"],
+      "level": "Beginner",
+      "duration": "8 hours"
+    },
+    {
+      "id": 22,
+      "title": "Express.js Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=L72fhGm1tfE",
+      "skills": ["Express.js", "Node.js", "Backend", "API"],
+      "level": "Beginner",
+      "duration": "2 hours"
+    },
+    {
+      "id": 23,
+      "title": "Deep Learning Specialization",
+      "platform": "Coursera",
+      "url": "https://www.coursera.org/specializations/deep-learning",
+      "skills": ["Deep Learning", "Neural Networks", "TensorFlow", "AI"],
+      "level": "Advanced",
+      "duration": "5 months"
+    },
+    {
+      "id": 24,
+      "title": "Natural Language Processing",
+      "platform": "Coursera",
+      "url": "https://www.coursera.org/specializations/natural-language-processing",
+      "skills": ["NLP", "Machine Learning", "Python", "AI"],
+      "level": "Advanced",
+      "duration": "4 months"
+    },
+    {
+      "id": 25,
+      "title": "Computer Vision with OpenCV",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=oXlwWbU8l2o",
+      "skills": ["Computer Vision", "OpenCV", "Python", "AI"],
+      "level": "Intermediate",
+      "duration": "4 hours"
+    },
+    {
+      "id": 26,
+      "title": "Cybersecurity Fundamentals",
+      "platform": "Coursera",
+      "url": "https://www.coursera.org/learn/cyber-security-domain",
+      "skills": ["Cybersecurity", "Network Security", "Security"],
+      "level": "Beginner",
+      "duration": "4 weeks"
+    },
+    {
+      "id": 27,
+      "title": "Linux for Beginners",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=sWbUDq4S6Y8",
+      "skills": ["Linux", "Unix", "Command Line"],
+      "level": "Beginner",
+      "duration": "2 hours"
+    },
+    {
+      "id": 28,
+      "title": "C++ Programming",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=vLnPwxZdW4Y",
+      "skills": ["C++", "Programming", "OOP"],
+      "level": "Beginner",
+      "duration": "4 hours"
+    },
+    {
+      "id": 29,
+      "title": "Terraform for Beginners",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=l5k1ai_GBDE",
+      "skills": ["Terraform", "Infrastructure as Code", "DevOps", "Cloud"],
+      "level": "Intermediate",
+      "duration": "1 hour"
+    },
+    {
+      "id": 30,
+      "title": "Jenkins CI/CD Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=FX322RVNGj4",
+      "skills": ["Jenkins", "CI/CD", "DevOps"],
+      "level": "Intermediate",
+      "duration": "3 hours"
+    },
+    {
+      "id": 31,
+      "title": "GraphQL Full Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=ed8SzALpx1Q",
+      "skills": ["GraphQL", "API", "Backend"],
+      "level": "Intermediate",
+      "duration": "4 hours"
+    },
+    {
+      "id": 32,
+      "title": "Redis Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=jgpVdJB2sKQ",
+      "skills": ["Redis", "Caching", "Database"],
+      "level": "Intermediate",
+      "duration": "1 hour"
+    },
+    {
+      "id": 33,
+      "title": "Microservices Architecture",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=CdBtNQZH8a4",
+      "skills": ["Microservices", "Architecture", "Backend"],
+      "level": "Advanced",
+      "duration": "1 hour"
+    },
+    {
+      "id": 34,
+      "title": "TypeScript Full Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=30LWjhZzg50",
+      "skills": ["TypeScript", "JavaScript", "Programming"],
+      "level": "Beginner",
+      "duration": "7 hours"
+    },
+    {
+      "id": 35,
+      "title": "Azure Fundamentals",
+      "platform": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/training/paths/azure-fundamentals/",
+      "skills": ["Azure", "Cloud Computing", "Microsoft"],
+      "level": "Beginner",
+      "duration": "10 hours"
+    },
+    {
+      "id": 36,
+      "title": "Google Cloud Platform Fundamentals",
+      "platform": "Google Cloud Skills Boost",
+      "url": "https://www.cloudskillsboost.google/paths/8",
+      "skills": ["GCP", "Cloud Computing", "Google Cloud"],
+      "level": "Beginner",
+      "duration": "8 hours"
+    },
+    {
+      "id": 37,
+      "title": "Tailwind CSS Full Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=dFgzHOX84xQ",
+      "skills": ["Tailwind CSS", "CSS", "Frontend", "Web Design"],
+      "level": "Beginner",
+      "duration": "1 hour"
+    },
+    {
+      "id": 38,
+      "title": "Sass Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=_a5j7KoflTs",
+      "skills": ["Sass", "CSS", "Frontend"],
+      "level": "Beginner",
+      "duration": "2 hours"
+    },
+    {
+      "id": 39,
+      "title": "Elasticsearch Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=C3tlMqaNSaI",
+      "skills": ["Elasticsearch", "Search", "Database"],
+      "level": "Intermediate",
+      "duration": "1 hour"
+    },
+    {
+      "id": 40,
+      "title": "Apache Kafka Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=aj9CDZm0Glc",
+      "skills": ["Kafka", "Messaging", "Distributed Systems"],
+      "level": "Advanced",
+      "duration": "1 hour"
+    },
+    {
+      "id": 41,
+      "title": "Ruby on Rails Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=fmyvWz5TUWg",
+      "skills": ["Ruby", "Rails", "Backend", "Web Development"],
+      "level": "Beginner",
+      "duration": "4 hours"
+    },
+    {
+      "id": 42,
+      "title": "Go Programming Language",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=YS4e4q9oBaU",
+      "skills": ["Go", "Golang", "Programming", "Backend"],
+      "level": "Beginner",
+      "duration": "7 hours"
+    },
+    {
+      "id": 43,
+      "title": "Rust Programming",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=zF34dRivLOw",
+      "skills": ["Rust", "Programming", "Systems Programming"],
+      "level": "Intermediate",
+      "duration": "1 hour"
+    },
+    {
+      "id": 44,
+      "title": "Swift iOS Development",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=09TeUXjzpKs",
+      "skills": ["Swift", "iOS", "Mobile Development", "Xcode"],
+      "level": "Beginner",
+      "duration": "4 hours"
+    },
+    {
+      "id": 45,
+      "title": "Kotlin for Android Development",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=F9UC9DY-vIU",
+      "skills": ["Kotlin", "Android", "Mobile Development"],
+      "level": "Beginner",
+      "duration": "4 hours"
+    },
+    {
+      "id": 46,
+      "title": "React Native Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=0-S5a0eXPoc",
+      "skills": ["React Native", "Mobile Development", "JavaScript"],
+      "level": "Intermediate",
+      "duration": "3 hours"
+    },
+    {
+      "id": 47,
+      "title": "Flutter Course",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=VPvVD8t02U8",
+      "skills": ["Flutter", "Dart", "Mobile Development"],
+      "level": "Beginner",
+      "duration": "37 hours"
+    },
+    {
+      "id": 48,
+      "title": "Blockchain Development",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=M576WGiDBdQ",
+      "skills": ["Blockchain", "Solidity", "Web3", "Smart Contracts"],
+      "level": "Advanced",
+      "duration": "4 hours"
+    },
+    {
+      "id": 49,
+      "title": "Pandas Tutorial for Data Analysis",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=vmEHCJofslg",
+      "skills": ["Pandas", "Python", "Data Analysis"],
+      "level": "Beginner",
+      "duration": "1 hour"
+    },
+    {
+      "id": 50,
+      "title": "Power BI Tutorial",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=TmhQCQr_DCA",
+      "skills": ["Power BI", "Data Visualization", "Business Intelligence"],
+      "level": "Beginner",
+      "duration": "4 hours"
+    }
+  ],
+  "job_role_skills": {
+    "Full Stack Developer": ["JavaScript", "React", "Node.js", "Python", "Django", "Flask", "HTML", "CSS", "SQL", "MongoDB", "REST API", "Git", "Docker"],
+    "Backend Developer": ["Python", "Django", "Flask", "Node.js", "Express.js", "Java", "SQL", "PostgreSQL", "MongoDB", "REST API", "Microservices", "Docker", "Redis"],
+    "Frontend Developer": ["JavaScript", "React", "Vue.js", "Angular", "HTML", "CSS", "TypeScript", "Tailwind CSS", "Sass", "Web Development"],
+    "Data Scientist": ["Python", "Machine Learning", "Data Science", "Pandas", "NumPy", "TensorFlow", "Deep Learning", "SQL", "Data Analysis", "Statistics"],
+    "Machine Learning Engineer": ["Python", "Machine Learning", "Deep Learning", "TensorFlow", "PyTorch", "NLP", "Computer Vision", "AI", "Data Science"],
+    "DevOps Engineer": ["Docker", "Kubernetes", "AWS", "CI/CD", "Jenkins", "Terraform", "Linux", "Cloud Computing", "Microservices"],
+    "Cloud Engineer": ["AWS", "Azure", "GCP", "Cloud Computing", "Docker", "Kubernetes", "Terraform", "DevOps"],
+    "Mobile Developer": ["React Native", "Flutter", "Swift", "Kotlin", "iOS", "Android", "Mobile Development"],
+    "Data Analyst": ["SQL", "Python", "Pandas", "Data Analysis", "Power BI", "Excel", "Data Visualization"],
+    "Software Engineer": ["Programming", "Data Structures", "Algorithms", "OOP", "Git", "Problem Solving"],
+    "AI Engineer": ["Python", "Machine Learning", "Deep Learning", "NLP", "Computer Vision", "TensorFlow", "AI"],
+    "Security Engineer": ["Cybersecurity", "Network Security", "Linux", "Security", "Ethical Hacking"],
+    "Web Developer": ["HTML", "CSS", "JavaScript", "Web Development", "React", "Node.js", "Git"],
+    "Blockchain Developer": ["Blockchain", "Solidity", "Web3", "Smart Contracts", "Cryptocurrency"],
+    "QA Engineer": ["Testing", "Automation", "Selenium", "Quality Assurance", "Bug Tracking"],
+    "UI/UX Designer": ["UI Design", "UX Design", "Figma", "Sketch", "Web Design", "User Research"],
+    "Product Manager": ["Product Management", "Agile", "Project Management", "Communication"],
+    "Database Administrator": ["SQL", "PostgreSQL", "MongoDB", "Database", "Performance Tuning"]
+  }
+}
+
